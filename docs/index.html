@@ -1208,7 +1208,7 @@
                             <li><strong>Java Version:</strong> 17 or 21</li>
                         </ul>
                     </li>
-                    <li>Add Dependencies: <strong>Spring Web</strong>, <strong>Lombok</strong>, and <strong>Spring Boot DevTools</strong>.</li>
+                    <li>Add Dependencies: <strong>Spring Web</strong>, and <strong>Spring Boot DevTools</strong>.</li>
                     <li>Click <strong>Generate</strong> to download the ZIP file. Extract it and open the folder in IntelliJ IDEA.</li>
                 </ol>
             </div>
@@ -1286,18 +1286,32 @@ public class DemoApplication {
                             <div class="code-header"><span>Student.java (POJO)</span><span class="code-lang-badge">Java</span></div>
                             <pre><code class="language-java">package com.example.demo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Student {
     private Long id;
     private String name;
     private String email;
     private String department;
+
+    public Student() {}
+
+    public Student(Long id, String name, String email, String department) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.department = department;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
 }</code></pre>
                             <div style="padding: 0.5rem 1rem; background-color: #161b22; display: flex; justify-content: flex-end;">
                                 <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path></svg>Copy Code</button>
@@ -1449,7 +1463,7 @@ public class StudentController {
                 <p>Complete the classroom activity by performing the following tasks:</p>
                 <div class="checkbox-item">
                     <input type="checkbox" id="d1-a1">
-                    <span style="display:inline;">Add a new field <code>age</code> (Integer) to the <code>Student</code> class. Update constructors and Lombok getters/setters.</span>
+                    <span style="display:inline;">Add a new field <code>age</code> (Integer) to the <code>Student</code> class. Update constructors and getters/setters.</span>
                 </div>
                 <div class="checkbox-item">
                     <input type="checkbox" id="d1-a2">
@@ -1521,16 +1535,12 @@ CREATE TABLE employee (
                     <div id="d2-props" class="tab-content active">
                         <div class="code-container">
                             <div class="code-header"><span>application.properties</span><span class="code-lang-badge">Properties</span></div>
-                            <pre><code class="language-properties"># Database connection settings
-spring.datasource.url=jdbc:mysql://localhost:3306/employee_db?useSSL=false&serverTimezone=UTC
+                            <pre><code class="language-properties">spring.datasource.url=jdbc:mysql://localhost:3306/employee_db
 spring.datasource.username=root
 spring.datasource.password=password123
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-# JPA/Hibernate properties
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true</code></pre>
+# Automatically create or update the database tables
+spring.jpa.hibernate.ddl-auto=update</code></pre>
                             <div style="padding: 0.5rem 1rem; background-color: #161b22; display: flex; justify-content: flex-end;">
                                 <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path></svg>Copy Code</button>
                             </div>
@@ -1542,30 +1552,35 @@ spring.jpa.properties.hibernate.format_sql=true</code></pre>
                             <div class="code-header"><span>Employee.java</span><span class="code-lang-badge">Java</span></div>
                             <pre><code class="language-java">package com.example.demo.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name = "employee")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
     private String department;
-
-    @Column(nullable = false)
     private int salary;
+
+    public Employee() {}
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
+
+    public int getSalary() { return salary; }
+    public void setSalary(int salary) { this.salary = salary; }
 }</code></pre>
                             <div style="padding: 0.5rem 1rem; background-color: #161b22; display: flex; justify-content: flex-end;">
                                 <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path></svg>Copy Code</button>
@@ -1736,35 +1751,211 @@ public class EmployeeController {
                 </div>
                 <p>Run the application in IntelliJ. We now test database updates by inserting a record, modifying it, and then checking our physical MySQL schema via SQL Queries.</p>
                 
-                <div class="postman-mock">
-                    <div class="postman-bar">
-                        <div class="postman-dots">
-                            <span class="postman-dot dot-red"></span>
-                            <span class="postman-dot dot-yellow"></span>
-                            <span class="postman-dot dot-green"></span>
+                <div class="tab-container">
+                    <div class="tab-header">
+                        <button class="tab-btn active" onclick="switchTab(event, 'd2-pm-get-all')">GET All</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'd2-pm-get-id')">GET By ID</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'd2-pm-post')">POST</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'd2-pm-put')">PUT</button>
+                        <button class="tab-btn" onclick="switchTab(event, 'd2-pm-delete')">DELETE</button>
+                    </div>
+
+                    <!-- GET ALL -->
+                    <div id="d2-pm-get-all" class="tab-content active">
+                        <div class="postman-mock" style="margin: 0; border: none; border-radius: 0;">
+                            <div class="postman-bar">
+                                <div class="postman-dots">
+                                    <span class="postman-dot dot-red"></span>
+                                    <span class="postman-dot dot-yellow"></span>
+                                    <span class="postman-dot dot-green"></span>
+                                </div>
+                                <span class="postman-tab-title">GET All Employees</span>
+                            </div>
+                            <div class="postman-url-bar">
+                                <span class="postman-method method-get">GET</span>
+                                <input type="text" class="postman-url-input" value="http://localhost:8080/api/employees" readonly>
+                                <button class="postman-btn">Send</button>
+                            </div>
+                            <div class="postman-response-bar">
+                                <span>Response Body</span>
+                                <div class="postman-status">
+                                    <span>Status:</span>
+                                    <span class="status-badge">200 OK</span>
+                                    <span>Time: 22ms</span>
+                                </div>
+                            </div>
+                            <div class="postman-response-body">
+                                <pre class="postman-json-payload" style="color: #4ec9b0;">[
+    {
+        "id": 1,
+        "name": "Rohan Mehra",
+        "department": "Engineering",
+        "salary": 75000
+    },
+    {
+        "id": 2,
+        "name": "Nisha Patel",
+        "department": "HR",
+        "salary": 65000
+    }
+]</pre>
+                            </div>
                         </div>
-                        <span class="postman-tab-title">GET Single Employee</span>
                     </div>
-                    <div class="postman-url-bar">
-                        <span class="postman-method method-get">GET</span>
-                        <input type="text" class="postman-url-input" value="http://localhost:8080/api/employees/1" readonly>
-                        <button class="postman-btn">Send</button>
-                    </div>
-                    <div class="postman-response-bar">
-                        <span>Response Body</span>
-                        <div class="postman-status">
-                            <span>Status:</span>
-                            <span class="status-badge">200 OK</span>
-                            <span>Time: 18ms</span>
-                        </div>
-                    </div>
-                    <div class="postman-response-body">
-                        <pre class="postman-json-payload" style="color: #4ec9b0;">{
+
+                    <!-- GET BY ID -->
+                    <div id="d2-pm-get-id" class="tab-content">
+                        <div class="postman-mock" style="margin: 0; border: none; border-radius: 0;">
+                            <div class="postman-bar">
+                                <div class="postman-dots">
+                                    <span class="postman-dot dot-red"></span>
+                                    <span class="postman-dot dot-yellow"></span>
+                                    <span class="postman-dot dot-green"></span>
+                                </div>
+                                <span class="postman-tab-title">GET Single Employee</span>
+                            </div>
+                            <div class="postman-url-bar">
+                                <span class="postman-method method-get">GET</span>
+                                <input type="text" class="postman-url-input" value="http://localhost:8080/api/employees/1" readonly>
+                                <button class="postman-btn">Send</button>
+                            </div>
+                            <div class="postman-response-bar">
+                                <span>Response Body</span>
+                                <div class="postman-status">
+                                    <span>Status:</span>
+                                    <span class="status-badge">200 OK</span>
+                                    <span>Time: 18ms</span>
+                                </div>
+                            </div>
+                            <div class="postman-response-body">
+                                <pre class="postman-json-payload" style="color: #4ec9b0;">{
     "id": 1,
     "name": "Rohan Mehra",
     "department": "Engineering",
     "salary": 75000
 }</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- POST -->
+                    <div id="d2-pm-post" class="tab-content">
+                        <div class="postman-mock" style="margin: 0; border: none; border-radius: 0;">
+                            <div class="postman-bar">
+                                <div class="postman-dots">
+                                    <span class="postman-dot dot-red"></span>
+                                    <span class="postman-dot dot-yellow"></span>
+                                    <span class="postman-dot dot-green"></span>
+                                </div>
+                                <span class="postman-tab-title">Create Employee</span>
+                            </div>
+                            <div class="postman-url-bar">
+                                <span class="postman-method method-post">POST</span>
+                                <input type="text" class="postman-url-input" value="http://localhost:8080/api/employees" readonly>
+                                <button class="postman-btn">Send</button>
+                            </div>
+                            <div class="postman-tabs">
+                                <div class="postman-tab active">Body (JSON)</div>
+                            </div>
+                            <div class="postman-body-section">
+                                <pre class="postman-json-payload">{
+    "name": "Arjun Singh",
+    "department": "Sales",
+    "salary": 55000
+}</pre>
+                            </div>
+                            <div class="postman-response-bar">
+                                <span>Response Body</span>
+                                <div class="postman-status">
+                                    <span>Status:</span>
+                                    <span class="status-badge" style="background-color: #27c93f; color: black; font-weight: bold;">201 Created</span>
+                                    <span>Time: 34ms</span>
+                                </div>
+                            </div>
+                            <div class="postman-response-body">
+                                <pre class="postman-json-payload" style="color: #4ec9b0;">{
+    "id": 3,
+    "name": "Arjun Singh",
+    "department": "Sales",
+    "salary": 55000
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PUT -->
+                    <div id="d2-pm-put" class="tab-content">
+                        <div class="postman-mock" style="margin: 0; border: none; border-radius: 0;">
+                            <div class="postman-bar">
+                                <div class="postman-dots">
+                                    <span class="postman-dot dot-red"></span>
+                                    <span class="postman-dot dot-yellow"></span>
+                                    <span class="postman-dot dot-green"></span>
+                                </div>
+                                <span class="postman-tab-title">Update Employee</span>
+                            </div>
+                            <div class="postman-url-bar">
+                                <span class="postman-method method-put">PUT</span>
+                                <input type="text" class="postman-url-input" value="http://localhost:8080/api/employees/1" readonly>
+                                <button class="postman-btn">Send</button>
+                            </div>
+                            <div class="postman-tabs">
+                                <div class="postman-tab active">Body (JSON)</div>
+                            </div>
+                            <div class="postman-body-section">
+                                <pre class="postman-json-payload">{
+    "name": "Rohan Mehra",
+    "department": "Engineering Management",
+    "salary": 85000
+}</pre>
+                            </div>
+                            <div class="postman-response-bar">
+                                <span>Response Body</span>
+                                <div class="postman-status">
+                                    <span>Status:</span>
+                                    <span class="status-badge">200 OK</span>
+                                    <span>Time: 28ms</span>
+                                </div>
+                            </div>
+                            <div class="postman-response-body">
+                                <pre class="postman-json-payload" style="color: #4ec9b0;">{
+    "id": 1,
+    "name": "Rohan Mehra",
+    "department": "Engineering Management",
+    "salary": 85000
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DELETE -->
+                    <div id="d2-pm-delete" class="tab-content">
+                        <div class="postman-mock" style="margin: 0; border: none; border-radius: 0;">
+                            <div class="postman-bar">
+                                <div class="postman-dots">
+                                    <span class="postman-dot dot-red"></span>
+                                    <span class="postman-dot dot-yellow"></span>
+                                    <span class="postman-dot dot-green"></span>
+                                </div>
+                                <span class="postman-tab-title">Delete Employee</span>
+                            </div>
+                            <div class="postman-url-bar">
+                                <span class="postman-method method-delete">DEL</span>
+                                <input type="text" class="postman-url-input" value="http://localhost:8080/api/employees/1" readonly>
+                                <button class="postman-btn">Send</button>
+                            </div>
+                            <div class="postman-response-bar">
+                                <span>Response Body</span>
+                                <div class="postman-status">
+                                    <span>Status:</span>
+                                    <span class="status-badge">204 No Content</span>
+                                    <span>Time: 20ms</span>
+                                </div>
+                            </div>
+                            <div class="postman-response-body">
+                                <pre class="postman-json-payload" style="color: #6a9955;">// No Content returned</pre>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1969,13 +2160,14 @@ public class EmployeeController {
                             <div class="code-header"><span>Employee.java (with Validation)</span><span class="code-lang-badge">Java</span></div>
                             <pre><code class="language-java">package com.example.demo.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
-import lombok.Data;
 
 @Entity
-@Data
 public class Employee {
 
     @Id
@@ -1990,6 +2182,20 @@ public class Employee {
 
     @Positive(message = "Salary must be greater than zero")
     private int salary;
+
+    public Employee() {}
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
+
+    public int getSalary() { return salary; }
+    public void setSalary(int salary) { this.salary = salary; }
 }</code></pre>
                             <div style="padding: 0.5rem 1rem; background-color: #161b22; display: flex; justify-content: flex-end;">
                                 <button class="copy-btn" onclick="copyCode(this)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path></svg>Copy Code</button>
