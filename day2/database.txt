@@ -23,3 +23,13 @@ INSERT INTO employee (id, name, department, salary) VALUES
 (8, 'Anjali Gupta', 'Finance', 72000),
 (9, 'Suresh Reddy', 'IT', 90000),
 (10, 'Pooja Nair', 'HR', 53000);
+
+
+
+SELECT * FROM employee;
+
+SELECT * FROM employee WHERE id = 1;
+
+UPDATE employee SET salary = 70000 WHERE id = 1;
+
+DELETE FROM employee WHERE id = 1;
