@@ -1,3 +1,17 @@
+CREATE DATABASE company;
+
+
+USE company;
+
+
+CREATE TABLE employee (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    department VARCHAR(100) NOT NULL,
+    salary INT NOT NULL
+);
+
+
 INSERT INTO employee (id, name, department, salary) VALUES
 (1, 'Amit Sharma', 'IT', 65000),
 (2, 'Priya Verma', 'HR', 55000),
