@@ -67,8 +67,15 @@ public class EmployeeController {
         return emps;
     } 
 
+    //https://github.com/ciaindia/tcet-july-2026.git
     //http://localhost:9090/employees 
-    //body: { "eid": 4, "name": "ddd", "department": "HR", "salary": 40000 }
+    //body:
+    // {
+    // "eid": 4, 
+    // "name": "ddd", 
+    // "department": "HR", 
+    // "salary": 40000 
+    // }
     @PostMapping("/employees")
     public void addEmployee(@RequestBody Employee employee) {
         emps.add(employee);
