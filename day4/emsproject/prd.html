@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRD - Employee Management System (emsproject)</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --accent: #dbeafe;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        header {
+            background-color: var(--surface);
+            padding: 3rem 2rem;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        header h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .section {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        h3 {
+            color: var(--secondary);
+            margin-top: 1.5rem;
+        }
+        ul {
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        strong {
+            color: var(--text-main);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background-color: var(--accent);
+            color: var(--primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Product Requirements Document (PRD)</h1>
+        <p>Employee Management System (emsproject)</p>
+        <p><small>Date: July 2026 | Status: MVP Completed</small></p>
+    </header>
+
+    <div class="container">
+        
+        <div class="section">
+            <h2>1. Overview</h2>
+            <p>The <strong>Employee Management System (EMS)</strong> is a full-stack web application designed to help administrative users securely manage their workforce. It provides a simple, modern interface to view, add, update, and delete employee records.</p>
+        </div>
+
+        <div class="section">
+            <h2>2. Goals & Objectives</h2>
+            <ul>
+                <li>Provide a secure, authenticated environment (JWT) for system administrators.</li>
+                <li>Ensure a smooth and responsive user experience using modern React (Vite).</li>
+                <li>Maintain a robust and scalable backend using Java Spring Boot and MySQL.</li>
+                <li>Provide built-in API documentation for easy future integration and developer hand-off.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>3. Tech Stack</h2>
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Technology</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td><strong>Frontend</strong></td>
+                    <td>React (Vite)</td>
+                    <td>Vanilla CSS, Axios, React-Router-DOM</td>
+                </tr>
+                <tr>
+                    <td><strong>Backend</strong></td>
+                    <td>Java Spring Boot 3</td>
+                    <td>Spring Security, Spring Data JPA, JWT (io.jsonwebtoken)</td>
+                </tr>
+                <tr>
+                    <td><strong>Database</strong></td>
+                    <td>MySQL 8.x</td>
+                    <td>Hosted remotely (72.60.219.201). Tables: `users`, `employee`</td>
+                </tr>
+                <tr>
+                    <td><strong>API Docs</strong></td>
+                    <td>OpenAPI / Swagger</td>
+                    <td>springdoc-openapi-starter-webmvc-ui</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>4. Core Features & Requirements</h2>
+            
+            <h3>4.1 Authentication & Authorization</h3>
+            <ul>
+                <li><strong>Registration:</strong> Users can create an administrator account securely. Passwords must be hashed using BCrypt before storing.</li>
+                <li><strong>Login:</strong> Users authenticate via Username and Password to receive a stateless JSON Web Token (JWT).</li>
+                <li><strong>Session Management:</strong> The JWT must be attached to the <code>Authorization: Bearer</code> header for all subsequent API calls. Unauthenticated requests must be rejected (403/401).</li>
+            </ul>
+
+            <h3>4.2 Employee CRUD Operations</h3>
+            <ul>
+                <li><strong>Create:</strong> Authenticated users can add new employees providing Name, Department, and Salary.</li>
+                <li><strong>Read:</strong> Authenticated users can view a tabular list of all employees currently in the database.</li>
+                <li><strong>Update:</strong> Users can select an existing employee and edit their Name, Department, or Salary.</li>
+                <li><strong>Delete:</strong> Users can completely remove an employee record from the system (soft-delete not required for MVP).</li>
+            </ul>
+            
+            <h3>4.3 API Documentation</h3>
+            <ul>
+                <li>The backend must automatically generate OpenAPI documentation.</li>
+                <li>The Swagger UI must be whitelisted and accessible without authentication for developer visibility.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>5. Future Enhancements (Post-MVP)</h2>
+            <ul>
+                <li>Role-Based Access Control (RBAC) (e.g., HR vs. Admin roles).</li>
+                <li>Pagination and sorting for the Employee Data Table.</li>
+                <li>Soft-deletion for historical records.</li>
+                <li>Employee profiles including contact information and hire dates.</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>

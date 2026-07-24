@@ -1,0 +1,29 @@
+# Java / Spring Boot
+fsdapp/target/
+fsdapp/*.jar
+fsdapp/*.war
+fsdapp/*.ear
+fsdapp/*.class
+fsdapp/.mvn/
+fsdapp/mvnw
+fsdapp/mvnw.cmd
+fsdapp/.idea/
+fsdapp/*.iml
+fsdapp/.vscode/
+
+# Node / React
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/.npm
+frontend/.eslintcache
+frontend/.vite/
+
+# General
+.DS_Store
+*.log

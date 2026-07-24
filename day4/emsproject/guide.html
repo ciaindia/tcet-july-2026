@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSCode Antigravity Setup Guide</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1, h2, h3 {
+            color: var(--primary);
+        }
+        .card {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        code {
+            background-color: #000;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+            color: #38bdf8;
+        }
+        pre {
+            background-color: #000;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .step {
+            margin-bottom: 1rem;
+        }
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Full-Stack CRUD Application Setup Guide</h1>
+    <p>Welcome to your newly generated Employee Management System. This guide will walk you through cloning, configuring, and running this project using VSCode Antigravity.</p>
+
+    <div class="card">
+        <h2>1. Workspace Structure</h2>
+        <p>Your repository is split into two main sections:</p>
+        <ul>
+            <li><code>fsdapp/</code> <span class="badge">Backend</span> - Spring Boot 3 Java Application.</li>
+            <li><code>frontend/</code> <span class="badge">Frontend</span> - React Vite Application.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>2. Cloning and Opening in VSCode Antigravity</h2>
+        <div class="step">
+            <p>1. Open your terminal in VSCode.</p>
+            <p>2. Clone your repository (if hosted on Git):</p>
+            <pre><code>git clone &lt;your-repo-url&gt;
+cd emsproject</code></pre>
+            <p>3. Ensure you open the root folder in VSCode so Antigravity has access to both workspaces.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>3. Running the Spring Boot Backend</h2>
+        <div class="step">
+            <h3>Database Configuration</h3>
+            <p>The backend requires a MySQL database. Ensure the <code>company</code> database exists and verify the credentials in:</p>
+            <code>fsdapp/src/main/resources/application.properties</code>
+        </div>
+        <div class="step">
+            <h3>Start the Server</h3>
+            <p>Open a terminal in VSCode, navigate to the backend directory, and run the Maven wrapper:</p>
+            <pre><code>cd fsdapp
+./mvnw spring-boot:run</code></pre>
+            <p>The backend will start on <strong>http://localhost:8081</strong>. Swagger UI is available at <a href="http://localhost:8081/swagger-ui/index.html" target="_blank" style="color: var(--primary);"><strong>http://localhost:8081/swagger-ui/index.html</strong></a>.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>4. Running the React Frontend</h2>
+        <div class="step">
+            <h3>Install Dependencies</h3>
+            <p>Open a new split terminal in VSCode, navigate to the frontend directory, and install the Node packages:</p>
+            <pre><code>cd frontend
+npm install</code></pre>
+        </div>
+        <div class="step">
+            <h3>Start the Dev Server</h3>
+            <p>Run the Vite development server:</p>
+            <pre><code>npm run dev</code></pre>
+            <p>The frontend will be accessible at <strong>http://localhost:5173</strong>.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>5. Authentication Setup</h2>
+        <p>The application is secured with JWT Tokens.</p>
+        <p>We have pre-configured a default admin user in the remote database. You can log into the frontend immediately with:</p>
+        <ul>
+            <li><strong>Username:</strong> <code>admin</code></li>
+            <li><strong>Password:</strong> <code>admin@123#</code></li>
+        </ul>
+        <p>Alternatively, click "Register" on the login page to create a new user.</p>
+    </div>
+
+    <div class="card">
+        <h2>6. API Documentation (Swagger)</h2>
+        <p>The backend includes auto-generated interactive OpenAPI documentation using the <code>springdoc-openapi-starter-webmvc-ui</code> library.</p>
+        <div class="step">
+            <h3>How it works:</h3>
+            <ul>
+                <li>The library automatically scans all <code>@RestController</code> endpoints to generate the schema.</li>
+                <li>The Swagger paths are explicitly whitelisted in <code>SecurityConfig.java</code> so you can view the docs without needing a JWT token.</li>
+            </ul>
+        </div>
+        <div class="step">
+            <h3>Access the Docs:</h3>
+            <p>While the Spring Boot server is running, visit:</p>
+            <ul>
+                <li><strong>Interactive UI:</strong> <a href="http://localhost:8081/swagger-ui/index.html" target="_blank" style="color: var(--primary);">http://localhost:8081/swagger-ui/index.html</a></li>
+                <li><strong>Raw JSON Spec:</strong> <a href="http://localhost:8081/v3/api-docs" target="_blank" style="color: var(--primary);">http://localhost:8081/v3/api-docs</a></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
